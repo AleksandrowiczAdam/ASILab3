@@ -26,7 +26,7 @@ jobs:
 
       - name: Run script
         run: |
-          python main.py CollegeDistance.csv models --n_folds 5 --seed 42
+          python main.py CollegeDistance.csv models --n_folds 5 --seed 1337
 
       - name: Display summary
         run: |
