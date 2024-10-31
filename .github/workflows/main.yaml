@@ -1,0 +1,33 @@
+name: ML Pipeline
+
+on:
+  workflow_dispatch:
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python environment
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Download CollegeDistance.csv
+        run: |
+          curl -o CollegeDistance.csv https://vincentarelbundock.github.io/Rdatasets/csv/AER/CollegeDistance.csv
+
+      - name: Run script
+        run: |
+          python main.py CollegeDistance.csv models --n_folds 5 --seed 42
+
+      - name: Display summary
+        run: |
+          cat log.txt
