@@ -72,7 +72,7 @@ def main(data_path, save_path, n_folds, seed):
     df[numerical_columns] = df[numerical_columns].fillna(df[numerical_columns].mean())
     
     # Fill categorical columns with "Unknown"
-    df[categorical_cols] = df[categorical_cols].fillna("Unknown")
+    df[categorical_columns] = df[categorical_columns].fillna("Unknown")
     
     logger.info(f"Imputed {n_of_missing_values} missing values.")
 
