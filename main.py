@@ -10,6 +10,7 @@ from sklearn.model_selection import train_test_split, GridSearchCV, KFold, cross
 from sklearn.ensemble import GradientBoostingRegressor, RandomForestRegressor
 from xgboost import XGBRegressor
 from sklearn.neural_network import MLPRegressor
+from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import RobustScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
@@ -61,6 +62,19 @@ def main(data_path, save_path, n_folds, seed):
 
     # Drop unmeaningful feature
     df = df.drop(columns=['rownames'], errors='ignore')
+    
+    # Impute missing values
+    n_of_missing_values = df.isnull().sum().sum()
+    numerical_columns = df.select_dtypes(include=['float64', 'int64']).columns
+    categorical_columns = df.select_dtypes(include=['object']).columns
+    
+    # Fill numerical columns with mean
+    df[numerical_columns] = df[numerical_columns].fillna(df[numerical_columns].mean())
+    
+    # Fill categorical columns with "Unknown"
+    df[categorical_cols] = df[categorical_cols].fillna("Unknown")
+    
+    logger.info(f"Imputed {n_of_missing_values} missing values.")
 
     # Visualize data distributions
     logger.info("Creating and saving histograms of dataset features.")
