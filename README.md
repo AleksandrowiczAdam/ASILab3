@@ -38,20 +38,18 @@ python main.py CollegeDistance.csv models --n_folds 5 --seed 1337
 ![score histogram](charts/score_histogram.png)![tuition histogram](charts/tuition_histogram.png)![unemp histogram](charts/unemp_histogram.png)
 ![urban countplot](charts/urban_countplot.png)![wage histogram](charts/wage_histogram.png)
 ### Czyszczenie danych
-Usunięto kolumnę "rownames" ponieważ był to tylko identifikator nie mający znaczenia dla predykcji
-Brakujące wartości wypełniono za pomocą imputacji:
--średnią w przypadku kolumn numerycznych
--wartością "Unknown" w przypadku kolumn kategorialnych
+Usunięto kolumnę "rownames" ponieważ był to tylko identifikator nie mający znaczenia dla predykcji. Brakujące wartości wypełniono za pomocą imputacji:
+średnią w przypadku kolumn numerycznych, wartością "Unknown" w przypadku kolumn kategorialnych
 
 ## Inżynieria i przygotowanie danych
-Przed podziałem na zbiór treningowy i testowy użyto RobustScaler dla kolumn numerycznych w celu zmiejszenia znaczenia wartości odstających i OneHotEncoder dla wartości kategorialnych
+Przed podziałem na zbiór treningowy i testowy użyto: **RobustScaler** dla kolumn numerycznych w celu zmiejszenia znaczenia wartości odstających, **OneHotEncoder** dla wartości kategorialnych
 w celu lepszej interpretacji przez model uczenia maszynowego.
 
 Zbiór został podzielony na podzbiory: treningowy (70%), walidacyjny (15%) i testowy (15%).
 
 
 ## Wyniki i podsumowanie
-Modele były trenowane przy użyciu walidacji krzyżowej i następnie przetestowane na zbiorach walidacyjnym i testowm. W poniższej tabeli przedstawione są wyniki dla poszczególnych modeli.
+Modele były trenowane przy użyciu walidacji krzyżowej i następnie przetestowane na zbiorach walidacyjnym i testowym. W poniższej tabeli przedstawione są wyniki dla poszczególnych modeli.
 
 ### Wyniki
 | Model              | Zbiór         | MAPE      | MAE        | MSE        | R²       |
