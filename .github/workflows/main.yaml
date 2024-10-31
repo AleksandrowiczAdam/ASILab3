@@ -27,6 +27,16 @@ jobs:
       - name: Run script
         run: |
           python main.py CollegeDistance.csv models --n_folds 5 --seed 1337
+          
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "s24732@pjwstk.edu.pl"
+          git config --local user.name "AleksandrowiczAdam"
+          git add charts  # Make sure to add the directory you created
+          git commit -m "Add generated plots" || echo "No changes to commit"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Automatically provided token          
 
       - name: Display summary
         run: |
