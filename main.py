@@ -79,6 +79,17 @@ def main(data_path, save_path, n_folds, seed):
     # Visualize data distributions
     logger.info("Creating and saving histograms of dataset features.")
     visualize_data(df)
+    
+    # LabX1 - Gruping score into 3 ranges [low, medium, high] based on percentile
+    score_bins = np.percentile(df['score'], [0, 33, 66, 100])  # 0%, 33%, 66%, and 100% percentiles
+    score_labels = ['low', 'medium', 'high']
+
+    # Create a new column 'score_category' that will store the categorical values based on score bins
+    df['score_category'] = pd.cut(df['score'], bins=score_bins, labels=score_labels, include_lowest=True)
+
+    # Now, drop the original 'score' column and rename 'score_category' to 'score'
+    df = df.drop(columns=['score'])  # Drop the original 'score' column
+    df = df.rename(columns={'score_category': 'score'})  # Rename 'score_category' to 'score'
 
     # Separate target variable and features
     X = df.drop(columns=['score'])
